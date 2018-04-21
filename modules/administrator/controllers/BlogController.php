@@ -47,12 +47,20 @@ class BlogController extends Controller
      */
     public function actionIndex()
     {
+        $year = date('Y');
+        // create an array for count blog by year this year
+        $blogCountByMonth = Blog::find()
+        ->select(['MONTH(FROM_UNIXTIME(created_at)) month', 'count(id) AS count'])
+        ->where("YEAR(FROM_UNIXTIME(created_at)) = $year")
+        ->groupBy('MONTH(FROM_UNIXTIME(created_at))')->asArray()->all();
+
         $searchModel = new BlogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'blogCountByMonth' => $blogCountByMonth,
         ]);
     }
 
