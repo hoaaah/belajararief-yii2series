@@ -5,6 +5,7 @@ namespace app\modules\administrator\controllers;
 use Yii;
 use app\models\Blog;
 use app\modules\administrator\models\BlogSearch;
+use app\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -86,12 +87,15 @@ class BlogController extends Controller
     {
         $model = new Blog();
 
+        $users = User::find()->select(['id', 'username'])->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'users' => $users,
         ]);
     }
 
