@@ -34,7 +34,9 @@ class Blog extends \yii\db\ActiveRecord
         return [
             [['slug', 'title', 'body'], 'required'],
             [['body'], 'string'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [[ 'created_by', 'updated_by'], 'integer'],
+            ['created_at', 'date', 'timestampAttribute' => 'created_at'],
+            ['updated_at', 'date', 'timestampAttribute' => 'updated_at'],
             [['slug'], 'string', 'max' => 2048],
             [['title'], 'string', 'max' => 512],
         ];
