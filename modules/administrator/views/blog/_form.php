@@ -24,13 +24,9 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'updated_at')->widget(DatePicker::className(), ['options' => ['class' => 'form form-control']]) ?>
 
-    <?= $form->field($model, 'created_by')->dropdownList(ArrayHelper::map($users, 'id', 'username'),
-        ['prompt'=>'Select User']
-    ); ?>
+    <?= $form->field($model, 'created_by')->dropdownList(ArrayHelper::map($users, 'id', 'username'), ['prompt'=>'Select User']); ?>
 
-    <?= $form->field($model, 'updated_by')->dropdownList(ArrayHelper::map($users, 'id', 'username'),
-        ['prompt'=>'Select User']
-    ); ?>
+    <?= $form->field($model, 'updated_by')->dropdownList(ArrayHelper::map($users, 'id', 'username'),['prompt'=>'Select User']); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
