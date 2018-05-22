@@ -16,36 +16,54 @@ $this->params['breadcrumbs'][] = $this->title;
 ChartJsAsset::register($this);
 ?>
 <div class="blog-index">
+    <div class="row">
+        
+        <div class="col-md-12">
 
-    <canvas id="blogCountByMonthChart"></canvas>
+            <h1><?= Html::encode($this->title) ?></h1>
+        
+        </div>
+    
+    </div>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="row">
 
-    <p>
-        <?= Html::a('Create Blog', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <div class="col-md-6">
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            <?php Pjax::begin(); ?>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-            'id',
-            'slug',
-            'title',
-            'body:html',
-            'created_at:date',
-            //'updated_at',
-            //'created_by',
-            //'updated_by',
+            <p>
+                <?= Html::a('Create Blog', ['create'], ['class' => 'btn btn-success']) ?>
+            </p>
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-    <?php Pjax::end(); ?>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'title',
+                    'body:html',
+                    'created_at:date',
+                    //'updated_at',
+                    //'created_by',
+                    //'updated_by',
+
+                    ['class' => 'yii\grid\ActionColumn'],
+                ],
+            ]); ?>
+            <?php Pjax::end(); ?>
+        
+        </div>
+
+        <div class="col-md-6">
+
+            <canvas id="blogCountByMonthChart"></canvas>
+
+        </div>
+
+    </div>
+
 </div>
 <?php 
 // first with convert our php array object to json
