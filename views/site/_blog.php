@@ -8,7 +8,7 @@ use yii\helpers\StringHelper;
 <div class="post">
     <h2><?= Html::a(Html::encode($model->title), ['/blog/'.$model->slug]) ?></h2>
 
-    <?= StringHelper::truncateWords(HtmlPurifier::process($model->body), 30, Html::a("Read More &raquo;", ['blog', 'slug' => $model->slug], [
+    <?= StringHelper::truncateWords(HtmlPurifier::process($model->body), 30, Html::a("Read More &raquo;", ['/blog/'.$model->slug], [
         'class' => 'btn btn-default'
     ]), true) ?>
 </div>
