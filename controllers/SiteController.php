@@ -66,6 +66,7 @@ class SiteController extends Controller
 
         $searchModel = new BlogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->pageSize = 3;
         $dataProvider->query->orderBy('created_at DESC');
 
         return $this->render('index', [

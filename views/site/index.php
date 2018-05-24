@@ -11,7 +11,8 @@ $this->title = 'My Yii Application';
             <div class="col-lg-10">
                 <?= Listview::widget([
                     'dataProvider' => $dataProvider,
-                    'itemView' => '_blog'
+                    'itemView' => '_blog',
+                    'layout' => "{items}\n{summary}\n{pager}",
                 ]) ?>
             </div>
         </div>

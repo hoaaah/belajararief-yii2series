@@ -52,7 +52,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['pattern' => 'blog/<slug>', 'route' => 'blog/view']
+                ['pattern' => '/<slug>', 'route' => 'blog/view']
             ],
         ],
     ],
