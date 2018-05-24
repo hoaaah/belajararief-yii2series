@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;use app\assets\ChartJsAsset;
 use yii\helpers\Json;
+use yii\helpers\StringHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\administrator\models\BlogSearch */
@@ -43,7 +44,14 @@ ChartJsAsset::register($this);
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     'title',
-                    'body:html',
+                    [
+                        'attribute' => 'body',
+                        'format' => 'raw',
+                        'value' => function ($model){
+                            return StringHelper::truncateWords(strip_tags($model->body, "<image>"), 30, "", true);
+                        }
+                    ],
+                    // 'body:html',
                     'created_at:date',
                     //'updated_at',
                     //'created_by',
