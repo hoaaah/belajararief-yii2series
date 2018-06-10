@@ -35,7 +35,8 @@ class Blog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['slug', 'title', 'body'], 'required'],
+            [['slug', 'title', 'body'], 'required', 'on' => 'default'],
+            [['body'], 'required', 'on' => 'editByOther'],
             [['body'], 'string'],
             [[ 'created_by', 'updated_by'], 'integer'],
             ['created_at', 'date', 'timestampAttribute' => 'created_at'],
