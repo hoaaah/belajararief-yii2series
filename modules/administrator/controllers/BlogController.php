@@ -112,8 +112,13 @@ class BlogController extends Controller
         
         $users = User::find()->select(['id', 'username'])->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        // if user who update different from user who create, scenario set to editByOther
+        if($model->created_by != Yii::$app->user->identity->id) $model->scenario = 'editByOther';
+
+        if ($model->load(Yii::$app->request->post())) {
+            // prevent user from change title if that article is not created by them
+            if($model->created_by != Yii::$app->user->identity->id) $model->title = $model->oldAttributes['title'];
+            if($model->save()) return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
