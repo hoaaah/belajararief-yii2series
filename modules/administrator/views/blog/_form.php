@@ -13,7 +13,7 @@ use dosamigos\ckeditor\CKEditor;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true, 'disabled' => $model->scenario == 'editByOther' ? true : false]) ?>
 
     <?= $form->field($model, 'body')->widget(CKEditor::class, [
         'options' => ['rows' => 6],
