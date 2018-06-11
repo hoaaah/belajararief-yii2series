@@ -48,13 +48,18 @@ class BlogController extends Controller
      */
     public function actionIndex()
     {
+        // get current server year
         $year = date('Y');
-        // create an array for count blog by year this year
+        /**
+         * create an array for count blog by year this year
+         * this array will be use to create bar chart with chartjs
+         */
         $blogCountByMonth = Blog::find()
         ->select(['MONTH(FROM_UNIXTIME(created_at)) month', 'count(id) AS count'])
         ->where("YEAR(FROM_UNIXTIME(created_at)) = $year")
         ->groupBy('MONTH(FROM_UNIXTIME(created_at))')->asArray()->all();
 
+        // show list of blog created
         $searchModel = new BlogSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
