@@ -92,15 +92,12 @@ class BlogController extends Controller
     {
         $model = new Blog();
 
-        $users = User::find()->select(['id', 'username'])->all();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'users' => $users,
         ]);
     }
 
@@ -114,8 +111,6 @@ class BlogController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        
-        $users = User::find()->select(['id', 'username'])->all();
 
         // if user who update different from user who create, scenario set to editByOther
         if($model->created_by != Yii::$app->user->identity->id) $model->scenario = 'editByOther';
@@ -128,7 +123,6 @@ class BlogController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'users' => $users,
         ]);
     }
 
