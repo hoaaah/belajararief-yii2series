@@ -136,4 +136,12 @@ class User extends ActiveRecord implements IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
+    /**
+     * declare relations between User and Blog
+     */
+    public function getBlogs()
+    {
+        return $this->hasMany(Blog::class, ['created_by' => 'id']);
+    }
+
 }

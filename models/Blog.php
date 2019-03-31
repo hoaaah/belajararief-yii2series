@@ -75,5 +75,22 @@ class Blog extends \yii\db\ActiveRecord
                 'immutable' => true
             ]
         ];
+    }
+
+    /**
+     * declare relations in created_by to user model
+     */
+    public function getUserCreator()
+    {
+        return $this->hasOne(User::class, ['id' => 'created_by']);
+    }
+
+
+    /**
+     * declare relations in updated_by to user model
+     */
+    public function getUserUpdater()
+    {
+        return $this->hasOne(User::class, ['id' => 'updated_by']);
     }    
 }
