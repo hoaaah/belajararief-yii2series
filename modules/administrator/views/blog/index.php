@@ -51,11 +51,12 @@ ChartJsAsset::register($this);
                             return StringHelper::truncateWords(strip_tags($model->body, "<image>"), 30, "", true);
                         }
                     ],
-                    // 'body:html',
+                    [
+                        'attribute' => 'created_by',
+                        'value' => 'userCreator.username'
+                    ],
                     'created_at:date',
-                    //'updated_at',
-                    //'created_by',
-                    //'updated_by',
+                    // 'userCreator.username',
 
                     ['class' => 'yii\grid\ActionColumn'],
                 ],
