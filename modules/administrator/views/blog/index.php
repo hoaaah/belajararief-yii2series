@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+// use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use app\assets\ChartJsAsset;
 use yii\helpers\Json;
@@ -32,18 +33,16 @@ ChartJsAsset::register($this);
 
         <div class="col-md-6">
 
-            <?php Pjax::begin(); ?>
-            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
             <p>
                 <?= Html::a('Create Blog', ['create'], ['class' => 'btn btn-success']) ?>
             </p>
 
             <?= GridView::widget([
+                'id' => 'kv-grid-demo',
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
+                    ['class' => 'kartik\grid\SerialColumn'],
                     'title',
                     [
                         'attribute' => 'body',
@@ -59,10 +58,50 @@ ChartJsAsset::register($this);
                     'created_at:date',
                     // 'userCreator.username',
 
-                    ['class' => 'yii\grid\ActionColumn'],
+                    [
+                        'class' => 'kartik\grid\ActionColumn',
+                        'noWrap' => true,
+                    ],                    
                 ],
-            ]); ?>
-            <?php Pjax::end(); ?>
+                'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
+                'headerRowOptions' => ['class' => 'kartik-sheet-style'],
+                'filterRowOptions' => ['class' => 'kartik-sheet-style'],
+                'pjax' => true, // pjax is set to always true for this demo
+                // set your toolbar
+                'toolbar' =>  [
+                    [
+                        'content' =>
+                            Html::a('<i class="fas fa-redo"></i>', ['grid-demo'], [
+                                'class' => 'btn btn-outline-secondary',
+                                'title'=> 'Reset Grid',
+                                'data-pjax' => 0, 
+                            ]), 
+                        'options' => ['class' => 'btn-group mr-2']
+                    ],
+                    '{export}',
+                    '{toggleData}',
+                ],
+                'toggleDataContainer' => ['class' => 'btn-group mr-2'],
+                // set export properties
+                'export' => [
+                    'fontAwesome' => true
+                ],
+                // parameters from the demo form
+                'bordered' => true,
+                'striped' => true,
+                'condensed' => true,
+                'responsive' => true,
+                'hover' => true,
+                'showPageSummary' => true,
+                'panel' => [
+                    'type' => GridView::TYPE_PRIMARY,
+                    'heading' => $this->title,
+                ],
+                'persistResize' => false,
+                'toggleDataOptions' => ['minCount' => 10],
+                // 'itemLabelSingle' => 'book',
+                // 'itemLabelPlural' => 'books'
+            ]) ?>
         
         </div>
 
