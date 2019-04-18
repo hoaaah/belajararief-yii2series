@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;use app\assets\ChartJsAsset;
+use yii\widgets\Pjax;
+use app\assets\ChartJsAsset;
 use yii\helpers\Json;
 use yii\helpers\StringHelper;
 
