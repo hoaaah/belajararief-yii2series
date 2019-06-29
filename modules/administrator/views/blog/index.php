@@ -45,13 +45,13 @@ ChartJsAsset::register($this);
                 'columns' => [
                     ['class' => 'kartik\grid\SerialColumn'],
                     'title',
-                    [
-                        'attribute' => 'body',
-                        'format' => 'raw',
-                        'value' => function ($model){
-                            return StringHelper::truncateWords(strip_tags($model->body, "<image>"), 30, "", true);
-                        }
-                    ],
+                    // [
+                    //     'attribute' => 'body',
+                    //     'format' => 'raw',
+                    //     'value' => function ($model){
+                    //         return StringHelper::truncateWords(strip_tags($model->body, "<image>"), 30, "", true);
+                    //     }
+                    // ],
                     [
                         'attribute' => 'category_id',
                         'value' => 'category.name',
