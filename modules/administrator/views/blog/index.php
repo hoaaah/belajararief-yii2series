@@ -51,6 +51,7 @@ ChartJsAsset::register($this);
                             return StringHelper::truncateWords(strip_tags($model->body, "<image>"), 30, "", true);
                         }
                     ],
+                    'category.name',
                     [
                         'attribute' => 'created_by',
                         'value' => 'userCreator.username'
