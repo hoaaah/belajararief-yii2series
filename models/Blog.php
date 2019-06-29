@@ -38,7 +38,7 @@ class Blog extends \yii\db\ActiveRecord
             [['slug', 'title', 'body'], 'required', 'on' => 'default'],
             [['body'], 'required', 'on' => 'editByOther'],
             [['body'], 'string'],
-            [[ 'created_by', 'updated_by'], 'integer'],
+            [[ 'created_by', 'updated_by', 'category_id'], 'integer'],
             ['created_at', 'date', 'timestampAttribute' => 'created_at'],
             ['updated_at', 'date', 'timestampAttribute' => 'updated_at'],
             [['slug'], 'string', 'max' => 2048],
@@ -56,6 +56,7 @@ class Blog extends \yii\db\ActiveRecord
             'slug' => 'Slug',
             'title' => 'Title',
             'body' => 'Body',
+            'category_id' => 'Category',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
@@ -93,4 +94,20 @@ class Blog extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'updated_by']);
     }    
+
+    /**
+     * declare relations in category_id to Category model
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
+    }
+
+    /**
+     * return a list of available category from Category model
+     */
+    public function getCategoryList()
+    {
+        return Category::find()->all();
+    }
 }
