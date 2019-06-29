@@ -1,12 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-// use yii\grid\GridView;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use app\assets\ChartJsAsset;
 use yii\helpers\Json;
 use yii\helpers\StringHelper;
+use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\administrator\models\BlogSearch */
@@ -51,7 +52,19 @@ ChartJsAsset::register($this);
                             return StringHelper::truncateWords(strip_tags($model->body, "<image>"), 30, "", true);
                         }
                     ],
-                    'category.name',
+                    [
+                        'attribute' => 'category_id',
+                        'value' => 'category.name',
+                        'filter' => Select2::widget([
+                            'model' => $searchModel,
+                            'attribute' => 'category_id',
+                            'data' => ArrayHelper::map(\app\models\Category::find()->all(), 'id', 'name'),
+                            'options' => ['placeholder' => 'Category ...'],
+                            'pluginOptions' => [
+                                'allowClear' => true
+                            ],
+                        ])
+                    ],
                     [
                         'attribute' => 'created_by',
                         'value' => 'userCreator.username'
