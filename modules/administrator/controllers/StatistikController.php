@@ -4,12 +4,9 @@ namespace app\modules\administrator\controllers;
 
 use Yii;
 use app\models\Blog;
-use app\modules\administrator\models\BlogSearch;
 use app\modules\administrator\models\StatistikSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * StatistikController implements the CRUD actions for Blog model.
