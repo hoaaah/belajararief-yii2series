@@ -78,6 +78,13 @@ class Blog extends \yii\db\ActiveRecord
         ];
     }
 
+    public function addBlogCounter()
+    {
+        $blogCounter = new BlogCounter();
+        $blogCounter->blog_id = $this->id;
+        return $blogCounter->save();
+    }
+
     /**
      * declare relations in created_by to user model
      */
