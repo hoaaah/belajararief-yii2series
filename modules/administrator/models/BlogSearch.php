@@ -2,7 +2,6 @@
 
 namespace app\modules\administrator\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Blog;
@@ -13,18 +12,18 @@ use app\models\Blog;
 class BlogSearch extends Blog
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
+            [['id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'category_id'], 'integer'],
             [['slug', 'title', 'body'], 'safe'],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -64,6 +63,7 @@ class BlogSearch extends Blog
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
+            'category_id' => $this->category_id,
         ]);
 
         $query->andFilterWhere(['like', 'slug', $this->slug])
