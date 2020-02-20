@@ -37,6 +37,9 @@ class BlogController extends Controller
      */
     public function actionView($slug)
     {
+        $model = $this->findModel($slug);
+        $model->addBlogCounter();
+        
         return $this->render('view', [
             'model' => $this->findModel($slug),
         ]);
