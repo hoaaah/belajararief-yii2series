@@ -116,6 +116,12 @@ class BlogController extends Controller
      */
     public function actionUpdate($id)
     {
+        $request = Yii::$app->request;
+        $render = "render";
+
+        // if ajax request comes, overrider render to renderAjax
+        if($request->isAjax) $render = "renderAjax";
+
         $model = $this->findModel($id);
 
         // if user who update different from user who create, scenario set to editByOther
@@ -124,10 +130,15 @@ class BlogController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             // prevent user from change title if that article is not created by them
             if($model->created_by != Yii::$app->user->identity->id) $model->title = $model->oldAttributes['title'];
-            if($model->save()) return $this->redirect(['view', 'id' => $model->id]);
+            if($model->save()){
+                if($request->isAjax) return 1;
+                return $this->redirect(['view', 'id' => $model->id]);
+            }else{
+                if($request->isAjax) return 0;
+            }
         }
 
-        return $this->render('update', [
+        return $this->{$render}('update', [
             'model' => $model,
         ]);
     }
