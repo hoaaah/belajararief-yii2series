@@ -78,7 +78,13 @@ class BlogController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        $request = Yii::$app->request;
+        $render = "render";
+
+        // if ajax request comes, overrider render to renderAjax
+        if($request->isAjax) $render = "renderAjax";
+
+        return $this->{$render}('view', [
             'model' => $this->findModel($id),
         ]);
     }
