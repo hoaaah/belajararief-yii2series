@@ -8,6 +8,7 @@ use yii\helpers\Json;
 use yii\helpers\StringHelper;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
+use yii\bootstrap4\Modal;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\administrator\models\BlogSearch */
@@ -45,13 +46,6 @@ ChartJsAsset::register($this);
                 'columns' => [
                     ['class' => 'kartik\grid\SerialColumn'],
                     'title',
-                    // [
-                    //     'attribute' => 'body',
-                    //     'format' => 'raw',
-                    //     'value' => function ($model){
-                    //         return StringHelper::truncateWords(strip_tags($model->body, "<image>"), 30, "", true);
-                    //     }
-                    // ],
                     [
                         'attribute' => 'category_id',
                         'value' => 'category.name',
@@ -70,11 +64,19 @@ ChartJsAsset::register($this);
                         'value' => 'userCreator.username'
                     ],
                     'created_at:date',
-                    // 'userCreator.username',
-
                     [
                         'class' => 'kartik\grid\ActionColumn',
                         'noWrap' => true,
+                        'template' => '{view} {update} {delete}',
+                        'buttons' => [
+                            'view' => function( $url, $model){
+                                return Html::a('<i class="fas fa-eye"></i>', $url, [
+                                    'data-toggle'=>"modal",
+                                    'data-target'=>"#myModal",
+                                    'data-title'=> "View Post #{$model->id}",
+                                ]);
+                            }
+                        ],
                     ],                    
                 ],
                 'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
@@ -129,6 +131,20 @@ ChartJsAsset::register($this);
 
 </div>
 <?php 
+// this is our bootstrap template. This bootstrap have no body
+Modal::begin([
+    'title' => 'Modal Title',
+    'options' => [
+        'id' => 'myModal',
+        'tabindex' => false // important for Select2 to work properly
+    ],
+    'size' => 'modal-lg',
+]);
+
+echo '...';
+
+Modal::end();
+
 // first with convert our php array object to json
 $blogCountByMonthJson = Json::encode($blogCountByMonth);
 
@@ -167,6 +183,20 @@ $this->registerJs(<<<JS
         },
         options: {}
     });
+
+    // this will generate Modal from crud
+    $('#myModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var modal = $(this)
+        var title = button.data('title') 
+        var href = button.attr('href') 
+        modal.find('.modal-title').html(title)
+        modal.find('.modal-body').html('<i class=\"fas fa-spinner fa-spin\"></i>')
+        $.post(href)
+        .done(function( data ) {
+            modal.find('.modal-body').html(data)
+        });
+    })
 JS
 );
 ?>
