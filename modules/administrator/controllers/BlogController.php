@@ -96,13 +96,22 @@ class BlogController extends Controller
      */
     public function actionCreate()
     {
+        $request = Yii::$app->request;
+        $render = "render";
+
+        // if ajax request comes, overrider render to renderAjax
+        if($request->isAjax) $render = "renderAjax";
+
         $model = new Blog();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if($request->isAjax) return 1;
             return $this->redirect(['view', 'id' => $model->id]);
+        }elseif($model->load(Yii::$app->request->post()) && !$model->save()){
+            if($request->isAjax) return 0;
         }
 
-        return $this->render('create', [
+        return $this->{$render}('create', [
             'model' => $model,
         ]);
     }

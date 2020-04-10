@@ -36,7 +36,12 @@ ChartJsAsset::register($this);
         <div class="col-md-6">
 
             <p>
-                <?= Html::a('Create Blog', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('Create Blog', ['create'], [
+                    'class' => 'btn btn-success',
+                    'data-toggle'=>"modal",
+                    'data-target'=>"#myModal",
+                    'data-title'=> "Create Blog",
+                ]) ?>
             </p>
 
             <?= GridView::widget([
@@ -75,7 +80,14 @@ ChartJsAsset::register($this);
                                     'data-target'=>"#myModal",
                                     'data-title'=> "View Post #{$model->id}",
                                 ]);
-                            }
+                            },
+                            'update' => function( $url, $model){
+                                return Html::a('<i class="fas fa-pencil-alt"></i>', $url, [
+                                    'data-toggle'=>"modal",
+                                    'data-target'=>"#myModal",
+                                    'data-title'=> "Update Post #{$model->id}",
+                                ]);
+                            },
                         ],
                     ],                    
                 ],
