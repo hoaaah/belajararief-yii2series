@@ -46,6 +46,7 @@ AppAsset::register($this);
             ['label' => 'Blog', 'url' => ['/administrator/blog'], 'visible' => !Yii::$app->user->isGuest, 'items' => [
                 ['label' => 'Manajemen', 'url' => ['/administrator/blog']],
                 ['label' => 'Statistik', 'url' => ['/administrator/statistik']],
+                ['label' => 'Kategori', 'url' => ['/administrator/category']],
             ]],
             ['label' => 'Register', 'url' => ['/site/signup'], 'visible' => Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ? (
